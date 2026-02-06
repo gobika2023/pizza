@@ -1,0 +1,156 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1e1e1e, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+/* Login Wrapper */
+.login-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Glass Card */
+.login-card {
+  width: 360px;
+  padding: 30px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  text-align: center;
+}
+
+/* Title */
+.app-title {
+  margin: 0;
+  font-size: 32px;
+  color: #ffcc00;
+}
+
+.subtitle {
+  color: #bbb;
+  margin-bottom: 25px;
+}
+
+/* Inputs */
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  background: #1c1c1c;
+  color: white;
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  background: linear-gradient(90deg, #ff9f0a, #ff2d55);
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* Links */
+.link-text {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.link-text a {
+  color: #ffcc00;
+  text-decoration: none;
+}
+.pizza-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.pizza-card {
+  width: 230px;
+  padding: 15px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.pizza-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.pizza-card .price {
+  font-size: 18px;
+  color: #ff9f0a;
+}
+
+.pizza-card .deal {
+  font-size: 13px;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+.pizza-card select,
+.pizza-card input[type="number"] {
+  width: 80%;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+.pizza-img {
+  width: 100%;
+  max-width: 180px;
+  display: block;
+  margin: 0 auto 12px;
+  border-radius: 14px;
+}
+.pizza-container {
+  display: flex;
+  flex-wrap: wrap;       /* Allows multiple rows */
+  justify-content: center; /* Centers all cards horizontally */
+  gap: 20px;             /* Space between cards */
+}
+
+.pizza-card {
+  flex: 1 1 250px;       /* Each card takes at least 250px, grows if space available */
+  max-width: 300px;      /* Optional: limit card size */
+  box-sizing: border-box;
+}
+
+

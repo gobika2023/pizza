@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Pizza</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h1 class="page-title">🍕 Today's Pizza Deals</h1>
+
+<div class="pizza-container" id="menu"></div>
+
+<script>
+/* ---------------- LOAD PIZZAS FROM ADMIN ---------------- */
+let pizzas = JSON.parse(localStorage.getItem("pizzas")) || [];
+
+const menu = document.getElementById("menu");
+
+if (pizzas.length === 0) {
+  menu.innerHTML = "<p style='color:white'>No pizzas available</p>";
+}
+
+pizzas.forEach((p, index) => {
+  menu.innerHTML += `
+    <div class="pizza-card">
+      <img src="${p.img}" class="pizza-img">
+
+      <h3>${p.name}</h3>
+
+      <p class="price"
+         data-small="${p.price}"
+         data-medium="${+p.price + 50}"
+         data-large="${+p.price + 100}">
+        ₹${p.price}
+      </p>
+
+      <p class="deal">🔥 Admin Special</p>
+
+      <select class="size-select" onchange="updatePrice(this)">
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+      </select>
+
+      <input type="number" value="1" min="1"
+             class="quantity" onchange="updatePrice(this)">
+
+      <p>Total: ₹<span class="total">${p.price}</span></p>
+
+      <button class="login-btn"
+        onclick="order('${p.name}', this)">
+        Order Now
+      </button>
+    </div>
+  `;
+});
+
+/* ---------------- PRICE UPDATE ---------------- */
+function updatePrice(element) {
+  const card = element.closest('.pizza-card');
+  const size = card.querySelector('.size-select').value;
+  const qty = parseInt(card.querySelector('.quantity').value);
+  const priceEl = card.querySelector('.price');
+
+  let base = priceEl.dataset[size];
+  card.querySelector('.total').innerText = base * qty;
+}
+
+/* ---------------- PLACE ORDER ---------------- */
+function order(name, btn) {
+  const card = btn.closest(".pizza-card");
+  const size = card.querySelector(".size-select").value;
+  const qty = card.querySelector(".quantity").value;
+  const total = card.querySelector(".total").innerText;
+
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+  orders.push({
+    name,
+    size,
+    quantity: qty,
+    total,
+    status: "Preparing"
+  });
+
+  localStorage.setItem("orders", JSON.stringify(orders));
+
+  window.location.href = "track.html";
+}
+</script>
+
+</body>
+</html>

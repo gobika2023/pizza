@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pizza Login</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .role-switch {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .role-switch button {
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      background: #333;
+      color: #fff;
+    }
+    .role-switch .active {
+      background: linear-gradient(90deg,#ff9f0a,#ff2d55);
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-wrapper">
+  <div class="login-card">
+    <h1 class="app-title">🍕 Pizza Delivery</h1>
+
+    <div class="role-switch">
+      <button id="userBtn" class="active" onclick="setRole('user')">User</button>
+      <button id="adminBtn" onclick="setRole('admin')">Admin</button>
+    </div>
+
+    <input id="email" placeholder="Email / Admin ID">
+    <input id="password" type="password" placeholder="Password">
+
+    <button class="login-btn" onclick="login()">Login</button>
+  </div>
+</div>
+
+<script>
+let role = "user";
+
+function setRole(r){
+  role = r;
+  userBtn.classList.toggle("active", r==="user");
+  adminBtn.classList.toggle("active", r==="admin");
+}
+
+function login(){
+  if(role === "admin"){
+    if(password.value === "admin123"){
+      location.href = "admin-dashboard.html";
+    } else alert("Invalid Admin Login");
+  } else {
+    location.href = "menus.html";
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Orders</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <h1>📦 Customer Orders</h1>
+    <p>Admin Dashboard</p>
+  </header>
+
+  <section class="orders-container">
+
+    <!-- Order Card -->
+    <div class="order-card">
+      <div class="order-header">
+        <h3>Margherita Pizza</h3>
+        <span class="status preparing">Preparing</span>
+      </div>
+
+      <div class="order-details">
+        <p><strong>Size:</strong> Medium</p>
+        <p><strong>Quantity:</strong> 2</p>
+        <p><strong>Total:</strong> ₹500</p>
+      </div>
+
+      <div class="order-actions">
+        <label>Update Status</label>
+        <select>
+          <option selected>Preparing</option>
+          <option>Out for delivery</option>
+          <option>Delivered</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Order Card -->
+    <div class="order-card">
+      <div class="order-header">
+        <h3>Farmhouse Pizza</h3>
+        <span class="status out">Out for Delivery</span>
+      </div>
+
+      <div class="order-details">
+        <p><strong>Size:</strong> Large</p>
+        <p><strong>Quantity:</strong> 1</p>
+        <p><strong>Total:</strong> ₹650</p>
+      </div>
+
+      <div class="order-actions">
+        <label>Update Status</label>
+        <select>
+          <option>Preparing</option>
+          <option selected>Out for delivery</option>
+          <option>Delivered</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Order Card -->
+    <div class="order-card">
+      <div class="order-header">
+        <h3>Pepperoni Pizza</h3>
+        <span class="status delivered">Delivered</span>
+      </div>
+
+      <div class="order-details">
+        <p><strong>Size:</strong> Small</p>
+        <p><strong>Quantity:</strong> 3</p>
+        <p><strong>Total:</strong> ₹750</p>
+      </div>
+
+      <div class="order-actions">
+        <label>Update Status</label>
+        <select>
+          <option>Preparing</option>
+          <option>Out for delivery</option>
+          <option selected>Delivered</option>
+        </select>
+      </div>
+    </div>
+
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pizza Register</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="login-wrapper">
+  <div class="login-card">
+    <h1 class="app-title">🍕 Pizza Delivery</h1>
+    <p class="subtitle">Create your account</p>
+
+    <input type="text" placeholder="Full Name">
+    <input type="email" placeholder="Email Address">
+    <input type="password" placeholder="Password">
+    <input type="password" placeholder="Confirm Password">
+    <input type="text" placeholder="Delivery Address">
+
+    <button class="login-btn" onclick="register()">Register</button>
+
+    <p class="link-text">
+      Already have an account?
+      <a href="index.html">Login</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  function register() {
+    alert("Registration successful!");
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>

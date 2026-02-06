@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Track Your Pizza Order</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1e1e1e;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-title {
+      text-align: center;
+      margin: 20px 0;
+      color: #ffa500;
+      font-size: 2.5em;
+    }
+
+    .order-summary {
+      width: 90%;
+      max-width: 900px;
+      margin: 20px auto;
+      background-color: #2c2c2c;
+      padding: 15px;
+      border-radius: 10px;
+      border: 2px solid #ffa500;
+    }
+
+    .order-summary h2 {
+      color: #ffa500;
+      margin-bottom: 10px;
+    }
+
+    .order-summary p {
+      margin: 5px 0;
+    }
+
+    .order-items table {
+      width: 90%;
+      max-width: 900px;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #2c2c2c;
+      border-radius: 10px;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .order-items th, .order-items td {
+      border: 1px solid #555;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .order-items th {
+      background-color: #ffa500;
+      color: #000;
+    }
+
+    .order-items img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .total-row td {
+      font-weight: bold;
+    }
+
+    .status-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 900px;
+    }
+
+    .status-card {
+      background: #2c2c2c;
+      border-radius: 15px;
+      padding: 20px;
+      width: 220px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      text-align: center;
+    }
+
+    .status-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .status-card p {
+      margin: 8px 0;
+    }
+
+    .status {
+      font-weight: bold;
+      color: #ffa500;
+    }
+  </style>
+</head>
+<body>
+
+<h1 class="page-title">🍕 Track Your Pizza Order</h1>
+
+<!-- Order Summary -->
+<div class="order-summary">
+  <h2>Order Summary</h2>
+  <p><strong>Order ID:</strong> #101</p>
+  <p><strong>Name:</strong> John Doe</p>
+  <p><strong>Address:</strong> 123 Main Street, City</p>
+  <p><strong>Date & Time:</strong> 02 Feb 2026, 12:30 PM</p>
+</div>
+
+<!-- Ordered Items Table -->
+<div class="order-items">
+  <h2 style="text-align:center; color:#ffa500;">Ordered Pizzas</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Pizza</th>
+        <th>Image</th>
+        <th>Size</th>
+        <th>Quantity</th>
+        <th>Price (₹)</th>
+        <th>Total (₹)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Margherita</td>
+        <td><img src="images/margherita.png" alt="Margherita"></td>
+        <td>Small</td>
+        <td>1</td>
+        <td>199</td>
+        <td>199</td>
+      </tr>
+      <tr>
+        <td>Pepperoni</td>
+        <td><img src="images/peperroni.png" alt="Pepperoni"></td>
+        <td>Medium</td>
+        <td>2</td>
+        <td>399</td>
+        <td>798</td>
+      </tr>
+      <tr>
+        <td>Paneer Tikka</td>
+        <td><img src="images/paner tikka.png" alt="Paneer Tikka"></td>
+        <td>Medium</td>
+        <td>1</td>
+        <td>349</td>
+        <td>349</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="5">Subtotal</td>
+        <td>1346</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="5">Delivery Charge</td>
+        <td>50</td>
+      </tr>
+      <tr class="total-row">
+        <td colspan="5">Grand Total</td>
+        <td>1396</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Pizza Status Cards -->
+<div class="status-container">
+  <div class="status-card">
+    <img src="images/margherita.png" alt="Margherita">
+    <p>Margherita</p>
+    <p>Size: Small</p>
+    <p>Quantity: 1</p>
+    <p>Status: <span class="status" id="status1">Preparing</span></p>
+  </div>
+
+  <div class="status-card">
+    <img src="images/peperroni.png" alt="Pepperoni">
+    <p>Pepperoni</p>
+    <p>Size: Medium</p>
+    <p>Quantity: 2</p>
+    <p>Status: <span class="status" id="status2">Out for Delivery</span></p>
+  </div>
+
+  <div class="status-card">
+    <img src="images/paner tikka.png" alt="Paneer Tikka">
+    <p>Paneer Tikka</p>
+    <p>Size: Medium</p>
+    <p>Quantity: 1</p>
+    <p>Status: <span class="status" id="status3">Preparing</span></p>
+  </div>
+</div>
+
+<script>
+  // Example: Update status dynamically (simulating order progress)
+  setTimeout(() => {
+    document.getElementById('status1').innerText = 'Out for Delivery';
+    document.getElementById('status1').style.color = '#00ff00';
+  }, 5000); // after 5 seconds
+
+  setTimeout(() => {
+    document.getElementById('status2').innerText = 'Delivered';
+    document.getElementById('status2').style.color = '#00ff00';
+  }, 10000); // after 10 seconds
+
+  setTimeout(() => {
+    document.getElementById('status3').innerText = 'Out for Delivery';
+    document.getElementById('status3').style.color = '#00ff00';
+  }, 8000); // after 8 seconds
+</script>
+
+</body>
+</html>
