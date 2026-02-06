@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pizza Delivery Page</title>
+
+<style>
+/* ---------- RESET ---------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------- BASE ---------- */
+body {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #1a1a1a, #000);
+    color: #fff;
+}
+
+/* ---------- LAYOUT ---------- */
+.container {
+    display: flex;
+}
+
+/* ---------- SIDEBAR ---------- */
+.sidebar {
+    width: 70px;
+    background: linear-gradient(to bottom, #070707, #575775);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    z-index: 100;
+}
+
+.sidebar:hover {
+    width: 220px;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+    color: #fff;
+    text-align: center;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    transition: background 0.3s;
+}
+
+.nav-item:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.nav-item span {
+    margin-left: 15px;
+    white-space: nowrap;
+}
+
+/* ---------- MAIN PAGE ---------- */
+.main-page {
+    margin-left: 70px;
+    padding: 50px;
+    flex: 1;
+}
+
+/* ---------- ORDER HISTORY ---------- */
+.order-history {
+    width: 300px;
+    padding: 30px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    margin-left: 20px;
+    max-height: 100vh;
+    overflow-y: auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+.order-history h2 {
+    color: #ffcc00;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.order-item {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.order-item p span {
+    color: #ff9f00;
+    font-weight: 600;
+}
+
+/* ---------- HEADER ---------- */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    font-size: 42px;
+    background: linear-gradient(to right, #ffe600, #ff9f00);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.header p {
+    opacity: 0.8;
+}
+
+/* ---------- DELIVERY STATUS ---------- */
+.delivery-status {
+    margin-top: 40px;
+    padding: 30px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+/* progress bar */
+.progress-track {
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.progress-fill {
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, #00ff88, #ff9f00);
+    border-radius: 3px;
+}
+
+/* steps */
+.steps {
+    display: flex;
+    justify-content: space-between;
+}
+
+.step {
+    text-align: center;
+    width: 120px;
+    color: #888;
+}
+
+.dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #555;
+    margin: auto;
+}
+
+.completed .dot {
+    background: #00ff88;
+}
+
+.completed p {
+    color: #00ff88;
+}
+
+.current .dot {
+    background: #ff9f00;
+    box-shadow: 0 0 20px #ff9f00;
+}
+
+.current p {
+    color: #ff9f00;
+    font-weight: 700;
+}
+
+.pulse {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    30% { box-shadow: 0 0 20px #c8984a; }
+    70% { box-shadow: 0 0 30px #da9d7e; }
+    100% { box-shadow: 0 0 40px #f3f2f1; }
+}
+
+.status-message {
+    margin-top: 30px;
+    padding: 18px;
+    border-radius: 14px;
+    background: linear-gradient(to right, #ff9f00, #f92169);
+    color: #000;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ---------- INFO CARDS ---------- */
+.info-grid {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.card {
+    background: linear-gradient(145deg, #070707, #434355);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.action {
+    color: #afe2f0;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration:underline;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>🍕</h2>
+        <div class="nav-item">🏠 <span>Home</span></div>
+        <div class="nav-item">📦 <span>Orders</span></div>
+        <div class="nav-item">📡 <span>Status</span></div>
+        <div class="nav-item">👤 <span>Profile</span></div>
+    </div>
+
+    <!-- MAIN PAGE -->
+    <div class="main-page">
+
+        <div class="header">
+            <h1>Pizza Delivery</h1>
+            <p>Order ID: <strong>#PZ45821</strong></p>
+        </div>
+
+        <div class="delivery-status">
+
+            <h2>🚚 Delivery Progress</h2>
+
+            <div class="progress-track">
+                <div class="progress-fill"></div>
+            </div>
+
+            <div class="steps">
+                <div class="step completed">
+                    <div class="dot"></div>
+                    <p>Order Confirmed</p>
+                </div>
+                <div class="step completed">
+                    <div class="dot"></div>
+                    <p>Pizza Baked</p>
+                </div>
+                <div class="step current">
+                    <div class="dot pulse"></div>
+                    <p>Out for Delivery</p>
+                </div>
+                <div class="step">
+                    <div class="dot"></div>
+                    <p>Delivered</p>
+                </div>
+            </div>
+
+            <div class="status-message">
+                🚀 Your order is now out for delivery!
+            </div>
+        </div>
+
+        <!-- INFO CARDS -->
+        <div class="info-grid">
+
+            <div class="card">
+                <h3>📞 Contact</h3>
+                <p>+91 98765 43210</p>
+                <p class="action">Edit Number</p>
+            </div>
+
+            <div class="card">
+                <h3>📍 Location</h3>
+                <p>Anna University, Chennai</p>
+                <p class="action">Change Address</p>
+            </div>
+
+            <div class="card">
+                <h3>🛵 Delivery Partner</h3>
+                <p>Ravi Kumar</p>
+                <p>⭐ 4.8 Rating</p>
+            </div>
+
+            <div class="card">
+                <h3>📦 Order Summary</h3>
+                <p>Farmhouse Pizza (Large)</p>
+                <p>Garlic Bread</p>
+                <p><strong>Total: ₹499</strong></p>
+            </div>
+
+            <div class="card">
+                <h3>📝 Instructions</h3>
+                <p>No onions</p>
+                <p>Call before arrival</p>
+                <p class="action">Edit Instructions</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ORDER HISTORY -->
+    <div class="order-history">
+        <h2>📋 Order History</h2>
+
+        <div class="order-item">
+            <p><span>Order ID:</span> #110</p>
+            <p><span>Status:</span> Preparing</p>
+            <p><span>Updated:</span> 2026-01-24 09:45</p>
+        </div>
+
+        <div class="order-item">
+            <p><span>Order ID:</span> #109</p>
+            <p><span>Status:</span> Payment Pending</p>
+            <p><span>Updated:</span> 2026-01-24 09:40</p>
+        </div>
+
+        <div class="order-item">
+            <p><span>Order ID:</span> #108</p>
+            <p><span>Status:</span> Pizza Baked</p>
+            <p><span>Updated:</span> 2026-01-24 09:35</p>
+        </div>
+
+        <div class="order-item">
+            <p><span>Order ID:</span> #107</p>
+            <p><span>Status:</span> Out for Delivery</p>
+            <p><span>Updated:</span> 2026-01-24 09:30</p>
+        </div>
+
+        <div class="order-item">
+            <p><span>Order ID:</span> #106</p>
+            <p><span>Status:</span> Delivered</p>
+            <p><span>Updated:</span> 2026-01-24 09:25</p>
+        </div>
+
+        <div class="order-item">
+            <p><span>Order ID:</span> #105</p>
+            <p><span>Status:</span> Cancelled</p>
+            <p><span>Updated:</span> 2026-01-24 09:20</p>
+        </div>
+
+        <div class="order-item">
+            <p><span>Order ID:</span> #104</p>
+            <p><span>Status:</span> Pizza Baked</p>
+            <p><span>Updated:</span> 2026-01-24 09:15</p>
+        </div>
+
+        <div class="order-item">
+            <p><span>Order ID:</span> #103</p>
+            <p><span>Status:</span> Out for Delivery</p>
+            <p><span>Updated:</span> 2026-01-24 09:00</p>
+        </div>
+
+        <div class="order-item">
+            <p><span>Order ID:</span> #102</p>
+            <p><span>Status:</span> Pizza Baked</p>
+            <p><span>Updated:</span> 2026-01-24 08:30</p>
+        </div>
+
+        <div class="order-item">
+            <p><span>Order ID:</span> #101</p>
+            <p><span>Status:</span> Order Confirmed</p>
+            <p><span>Updated:</span> 2026-01-24 08:00</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

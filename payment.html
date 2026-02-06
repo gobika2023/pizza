@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Payment Gateway</title>
+
+<style>
+/* ---------- RESET ---------- */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ---------- BASE ---------- */
+body{
+    font-family:'Poppins','Segoe UI',sans-serif;
+    background:radial-gradient(circle at top,#111,#000);
+    color:#fff;
+}
+
+/* ---------- LAYOUT ---------- */
+.container{
+    display:flex;
+}
+
+/* ---------- SIDEBAR ---------- */
+.sidebar{
+    width:70px;
+    background:linear-gradient(to bottom,#070707,#49495a);
+    height:100vh;
+    position:fixed;
+    left:0;
+    top:0;
+    transition:width 0.3s ease;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding-top:20px;
+}
+
+.sidebar:hover{
+    width:220px;
+}
+
+.nav-item{
+    display:flex;
+    align-items:center;
+    width:100%;
+    padding:15px 20px;
+    cursor:pointer;
+}
+
+.nav-item span{
+    margin-left:15px;
+    white-space:nowrap;
+}
+
+.nav-item:hover{
+    background:rgba(255,255,255,0.15);
+}
+
+/* ---------- MAIN ---------- */
+.main{
+    margin-left:70px;
+    padding:45px;
+    width:100%;
+}
+
+/* ---------- HEADER ---------- */
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+}
+
+.header h1{
+    font-size:38px;
+    background:linear-gradient(to right,#00ffcc,#ff9f00);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.header p{
+    opacity:0.7;
+}
+
+/* ---------- GRID ---------- */
+.payment-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:35px;
+}
+
+/* ---------- PAYMENT BOX ---------- */
+.payment-box{
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+    border-radius:25px;
+    padding:35px;
+    box-shadow:0 30px 80px rgba(0,0,0,0.7);
+    animation:fadeUp 1s ease;
+}
+
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(40px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* ---------- RADIO ---------- */
+input[type=radio]{display:none;}
+
+/* ---------- TABS ---------- */
+.tabs{
+    display:flex;
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.tab{
+    flex:1;
+    padding:14px;
+    text-align:center;
+    border-radius:14px;
+    background:rgba(255,255,255,0.12);
+    cursor:pointer;
+    font-weight:600;
+}
+
+#card:checked ~ .tabs label[for="card"],
+#upi:checked ~ .tabs label[for="upi"],
+#wallet:checked ~ .tabs label[for="wallet"]{
+    background:linear-gradient(to left,#ea4cb8,#ec43ab);
+    color:#000;
+}
+
+/* ---------- FORMS ---------- */
+.pay-section{display:none;}
+
+#card:checked ~ .card-pay,
+#upi:checked ~ .upi-pay,
+#wallet:checked ~ .wallet-pay{
+    display:block;
+}
+
+.form-group{
+    margin-bottom:18px;
+}
+
+.form-group input{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:none;
+    background:rgba(255,255,255,0.15);
+    color:#fff;
+}
+
+/* CARD GRID */
+.card-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:15px;
+}
+
+/* WALLET */
+.wallets{
+    display:flex;
+    gap:15px;
+    margin-top:15px;
+}
+
+.wallets span{
+    padding:14px 18px;
+    border-radius:14px;
+    background:rgba(255,255,255,0.15);
+    cursor:pointer;
+}
+
+/* PAY BUTTON */
+.pay-btn{
+    margin-top:30px;
+    width:100%;
+    padding:18px;
+    border-radius:18px;
+    border:none;
+    background:linear-gradient(to left,#77fc4a,#77fc4a);
+    font-size:18px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* ---------- SECURE SECTION ---------- */
+.secure-text{
+    text-align:center;
+    margin-top:15px;
+}
+
+.secure-options{
+    margin-top:12px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.secure-options span{
+    padding:8px 14px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.12);
+    font-size:14px;
+}
+
+.trust-badges{
+    margin-top:10px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    font-size:13px;
+    color:#00ffcc;
+    opacity:0.85;
+}
+
+/* ---------- RIGHT PANEL ---------- */
+.side-panel{
+    display:grid;
+    gap:25px;
+}
+
+/* ORDER SUMMARY */
+.summary{
+    background:linear-gradient(145deg,#070707,#434355);
+    border-radius:22px;
+    padding:30px;
+    box-shadow:0 25px 60px rgba(0,0,0,0.6);
+}
+
+.summary h2{
+    color:#ffcc00;
+    margin-bottom:20px;
+}
+
+.item{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:12px;
+}
+
+.total{
+    margin-top:15px;
+    padding-top:12px;
+    border-top:1px solid rgba(255,255,255,0.2);
+    font-size:20px;
+    color:#00ffcc;
+    font-weight:700;
+}
+
+/* STATUS */
+.status{
+    background:rgba(255,255,255,0.08);
+    border-radius:22px;
+    padding:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.5);
+}
+
+.status h3{
+    color:#00ffcc;
+    margin-bottom:15px;
+}
+
+.badge{
+    padding:10px 16px;
+    border-radius:14px;
+    background:linear-gradient(to right,#ff9f00,#ff3700);
+    color:#000;
+    font-weight:600;
+}
+
+/* INFO */
+.info{
+    background:rgba(255,255,255,0.06);
+    border-radius:22px;
+    padding:22px;
+    text-align:center;
+    opacity:0.85;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>🍕</h2>
+    <div class="nav-item">🏠 <span>Home</span></div>
+    <div class="nav-item">📦 <span>Orders</span></div>
+    <div class="nav-item">💳 <span>Payment</span></div>
+    <div class="nav-item">👤 <span>Profile</span></div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="header">
+    <div>
+        <h1>Secure Payment</h1>
+        <p>Order ID: #PZ45821</p>
+    </div>
+    <p>⏳ Awaiting Payment</p>
+</div>
+
+<div class="payment-grid">
+
+<!-- PAYMENT -->
+<div class="payment-box">
+
+<input type="radio" id="card" name="pay" checked>
+<input type="radio" id="upi" name="pay">
+<input type="radio" id="wallet" name="pay">
+
+<div class="tabs">
+    <label for="card" class="tab">💳 Card</label>
+    <label for="upi" class="tab">📱 UPI</label>
+    <label for="wallet" class="tab">👛 Wallet</label>
+</div>
+
+<div class="pay-section card-pay">
+    <div class="form-group"><input type="text" placeholder="Card Holder Name"></div>
+    <div class="form-group"><input type="text" placeholder="Card Number"></div>
+    <div class="card-grid">
+        <input type="text" placeholder="Expiry">
+        <input type="password" placeholder="CVV">
+        <input type="text" placeholder="OTP">
+    </div>
+</div>
+
+<div class="pay-section upi-pay">
+    <div class="form-group">
+        <input type="text" placeholder="UPI ID (example@upi)">
+    </div>
+    <p>Use any UPI app to complete payment</p>
+</div>
+
+<div class="pay-section wallet-pay">
+    <p>Select Wallet</p>
+    <div class="wallets">
+        <span>PhonePe</span>
+        <span>Paytm</span>
+        <span>GPay</span>
+    </div>
+</div>
+
+<button class="pay-btn">Pay ₹499</button>
+
+<div class="secure-text">🔒 256-bit SSL Secure</div>
+
+<div class="secure-options">
+    <span>💳 Visa</span>
+    <span>💳 MasterCard</span>
+    <span>📱 UPI</span>
+    <span>👛 Wallets</span>
+</div>
+
+<div class="trust-badges">
+    <span>✔ PCI DSS</span>
+    <span>✔ RBI Compliant</span>
+    <span>✔ Fraud Protection</span>
+</div>
+
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="side-panel">
+
+<div class="summary">
+    <h2>Order Summary</h2>
+    <div class="item"><span>Farmhouse Pizza</span><span>₹399</span></div>
+    <div class="item"><span>Garlic Bread</span><span>₹80</span></div>
+    <div class="item"><span>Delivery Fee</span><span>₹20</span></div>
+    <div class="total"><span>Total</span><span> ₹ 499</span></div>
+</div>
+
+<div class="status">
+    <h3>Payment Status</h3>
+    <div class="badge">Pending Confirmation</div>
+</div>
+
+<div class="info">
+    🚀 Fast • Secure • Contactless Checkout<br>
+    Powered by Demo Payment Gateway
+</div>
+
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
