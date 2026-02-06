@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pizza Login</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="login-wrapper">
+  <div class="login-card">
+    <h1 class="app-title">🍕 Pizza Delivery</h1>
+    <p class="subtitle">Login to continue</p>
+
+    <input type="email" placeholder="Email Address">
+    <input type="password" placeholder="Password">
+
+    <button class="login-btn" onclick="login()">Login</button>
+
+    <p class="link-text">
+      New user? <a href="register.html">Create account</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  function login() {
+    window.location.href = "menus.html";
+  }
+</script>
+<script src="js/data.js"></script>
+</body>
+</html>

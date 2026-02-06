@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Pizza</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h1 class="page-title">🍕 Today's Pizza Deals</h1>
+
+<div class="pizza-container">
+
+  <!-- margherita -->
+  <div class="pizza-card">
+    <img src="images/margherita.png" alt="margherita" class="pizza-img">
+
+    <p class="price" data-small="199" data-medium="249" data-large="299">₹199</p>
+    <p class="deal">🔥 Buy 1 Get 1</p>
+    <select class="size-select" onchange="updatePrice(this)">
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+    </select>
+    <input type="number" value="1" min="1" class="quantity" onchange="updatePrice(this)">
+    <p>Total: ₹<span class="total">199</span></p>
+    <button class="login-btn" onclick="order()">Order Now</button>
+  </div>
+
+  
+
+  <!-- pepperoni -->
+  <div class="pizza-card">
+    <img src="images/peperroni.png" alt="pepperoni" class="pizza-img">
+
+    <p class="price" data-small="349" data-medium="399" data-large="449">₹349</p>
+    <p class="deal">🚀 Free Delivery</p>
+    <select class="size-select" onchange="updatePrice(this)">
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+    </select>
+    <input type="number" value="1" min="1" class="quantity" onchange="updatePrice(this)">
+    <p>Total: ₹<span class="total">349</span></p>
+    <button class="login-btn" onclick="order()">Order Now</button>
+  </div>
+
+  <!-- Veggie Delight -->
+  <div class="pizza-card">
+    <img src="images/veggie.png" alt="Veggie Delight" class="pizza-img">
+  
+
+    <p class="price" data-small="279" data-medium="329" data-large="379">₹279</p>
+    <p class="deal">🍀 Healthy Choice</p>
+    <select class="size-select" onchange="updatePrice(this)">
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+    </select>
+    <input type="number" value="1" min="1" class="quantity" onchange="updatePrice(this)">
+    <p>Total: ₹<span class="total">279</span></p>
+    <button class="login-btn" onclick="order()">Order Now</button>
+  </div>
+
+  <!-- Chicken Supreme -->
+  <div class="pizza-card">
+    <img src="images/chicken .png" alt="Chicken Supreme" class="pizza-img">
+
+    <p class="price" data-small="399" data-medium="449" data-large="499">₹399</p>
+    <p class="deal">🔥 Special Today</p>
+    <select class="size-select" onchange="updatePrice(this)">
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+    </select>
+    <input type="number" value="1" min="1" class="quantity" onchange="updatePrice(this)">
+    <p>Total: ₹<span class="total">399</span></p>
+    <button class="login-btn" onclick="order()">Order Now</button>
+  </div>
+
+  <!-- Cheese Burst -->
+  <div class="pizza-card">
+    <img src="images/cheeseburst.png" alt="Cheese Burst" class="pizza-img">
+
+    <p class="price" data-small="359" data-medium="409" data-large="459">₹359</p>
+    <p class="deal">🧀 Extra Cheese</p>
+    <select class="size-select" onchange="updatePrice(this)">
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+    </select>
+    <input type="number" value="1" min="1" class="quantity" onchange="updatePrice(this)">
+    <p>Total: ₹<span class="total">359</span></p>
+    <button class="login-btn" onclick="order()">Order Now</button>
+  </div>
+    <!-- Paneer Tikka -->
+  <div class="pizza-card">
+    <img src="images/paner tikka.png" alt="Paneer Tikka" class="pizza-img">
+
+    <p class="price" data-small="299" data-medium="349" data-large="399">₹299</p>
+    <p class="deal">🌶 Spicy & Delicious</p>
+    <select class="size-select" onchange="updatePrice(this)">
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+    </select>
+    <input type="number" value="1" min="1" class="quantity" onchange="updatePrice(this)">
+    <p>Total: ₹<span class="total">299</span></p>
+    <button class="login-btn" onclick="order()">Order Now</button>
+  </div>
+
+  <!-- Neapolitan -->
+  <div class="pizza-card">
+    <img src="images/neapolitan.png" alt="Neapolitan" class="pizza-img">
+
+    <p class="price" data-small="329" data-medium="379" data-large="429">₹329</p>
+    <p class="deal">🍅 Classic Italian</p>
+    <select class="size-select" onchange="updatePrice(this)">
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+    </select>
+    <input type="number" value="1" min="1" class="quantity" onchange="updatePrice(this)">
+    <p>Total: ₹<span class="total">329</span></p>
+    <button class="login-btn" onclick="order()">Order Now</button>
+  </div>
+
+
+
+</div>
+
+<script>
+function updatePrice(element) {
+  const card = element.closest('.pizza-card');
+  const size = card.querySelector('.size-select').value;
+  const quantity = parseInt(card.querySelector('.quantity').value);
+  const priceEl = card.querySelector('.price');
+
+  let price = 0;
+  if (size === 'small') price = parseInt(priceEl.dataset.small);
+  else if (size === 'medium') price = parseInt(priceEl.dataset.medium);
+  else if (size === 'large') price = parseInt(priceEl.dataset.large);
+
+  card.querySelector('.total').innerText = price * quantity;
+}
+
+function order() {
+  alert("Order placed successfully!");
+  window.location.href = "track.html";
+}
+</script>
+<script src="js/data.js"></script>
+</body>
+</html>
